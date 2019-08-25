@@ -93,7 +93,7 @@ float LinuxParser::MemoryUtilization() {
   return ((total_mem - free_mem) / total_mem); 
 }
 
-// TODO: Read and return the system uptime
+// Done: Read and return the system uptime
 long LinuxParser::UpTime() { 
   string value;
   string line;
@@ -107,20 +107,57 @@ long LinuxParser::UpTime() {
 }
 
 // TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
+long LinuxParser::Jiffies() { 
+  //LinuxParser::CPUStates states;
+  long total {0};
+  vector<string> cpu_utilization;
+  cpu_utilization = LinuxParser::CpuUtilization();
+  for (int state = kUser_; state  <= kSteal_; state++){
+    total += stol(cpu_utilization[state]);
+  }
+  return total;
+}
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
 
 // TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
+long LinuxParser::ActiveJiffies() { 
+  long active = LinuxParser::Jiffies() - LinuxParser::IdleJiffies();
+
+  return active; 
+}
 
 // TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
+long LinuxParser::IdleJiffies() {
+  long total {0};
+  vector<string> cpu_utilization = LinuxParser::CpuUtilization();
+  for (int state = kIdle_; state <= kIOwait_; state++){
+    total += stol(cpu_utilization[state]);
+  }
+  return total;
+}
 
-// TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
+// Done: Read and return CPU utilization
+vector<string> LinuxParser::CpuUtilization() { 
+  string line, info;
+  vector<string> infos;
+  std::ifstream filestream(kProcDirectory + kStatFilename);
+  // Get first line
+  if (filestream.is_open()) {
+    std::getline(filestream, line);
+    std::istringstream linestream(line);
+    // Tokenize
+    while (std::getline(linestream, info, ' ')) {
+      if ((info == "cpu") || (info == "")){
+        continue;
+      }
+      infos.push_back(info);
+    }
+  }
+  return infos;
+}
 
 // TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { return 0; }
