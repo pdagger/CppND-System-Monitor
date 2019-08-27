@@ -4,7 +4,7 @@
 #include <unistd.h> // for usleep
 #include<iostream>
 
-// TODO: Return the aggregate CPU utilization
+// Done: Return the aggregate CPU utilization
 float Processor::Utilization() {
 	long delta_active, delta_total;
 
