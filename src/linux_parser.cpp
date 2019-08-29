@@ -163,7 +163,6 @@ vector<string> LinuxParser::CpuUtilization() {
 // Done: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { 
   string line, key, value;
-  vector<string> infos;
   std::ifstream filestream(kProcDirectory + kStatFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -185,7 +184,6 @@ int LinuxParser::TotalProcesses() {
 // Done: Read and return the number of running processes
 int LinuxParser::RunningProcesses() { 
   string line, key, value;
-  vector<string> infos;
   std::ifstream filestream(kProcDirectory + kStatFilename);
   if (filestream.is_open()){
     while (std::getline(filestream, line)) {
@@ -207,7 +205,6 @@ int LinuxParser::RunningProcesses() {
 // Done: Read and return the command associated with a process
 string LinuxParser::Command(int pid) { 
   string line;
-  vector<string> infos;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kCmdlineFilename);
   if (filestream.is_open()){
     std::getline(filestream, line);
@@ -225,7 +222,6 @@ string LinuxParser::Command(int pid) {
 // Done: Read and return the memory used by a process
 string LinuxParser::Ram(int pid) { 
   string line, key, value;
-  vector<string> infos;
   std::stringstream ram;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatusFilename);
   if (filestream.is_open()){
@@ -243,13 +239,56 @@ string LinuxParser::Ram(int pid) {
   return "0";
 }
 
-// TODO: Read and return the user ID associated with a process
-// REMOVE: [[maybe_unused]] once you define the function
-string LinuxParser::Uid(int pid[[maybe_unused]]) { return string(); }
+// Done: Read and return the user ID associated with a process
+string LinuxParser::Uid(int pid) {  
+  string line, key, value;
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatusFilename);
+  if (filestream.is_open()){
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      while (linestream >> key >> value) {
+        if (key == "Uid:"){
+          return value;
+        }
+      }
+    }
+  }
+  return string();
+}
 
-// TODO: Read and return the user associated with a process
-// REMOVE: [[maybe_unused]] once you define the function
-string LinuxParser::User(int pid[[maybe_unused]]) { return string(); }
+// Done: Read and return the user associated with a process
+string LinuxParser::User(int pid) { 
+  string line, info, user;
+  string uid = LinuxParser::Uid(pid);
+  int i;
+
+  if (uid == ""){
+    return "None";
+  }
+
+  std::ifstream filestream(kPasswordPath);
+  if (filestream.is_open()){
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      i = 0;
+      while (std::getline(linestream, info, ':')) {
+        if (i == 0){
+          user = info;
+          i++;
+          continue;
+        }
+        if (info == uid) {
+          return user;
+        }
+        else if (i == 2) {
+          break;
+        }
+        i++;
+      }
+    }
+  }
+  return "None";
+}
 
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
