@@ -12,10 +12,10 @@ It contains relevant attributes as shown below
 class Process {
  public:
   int Pid();                               // Done: See src/process.cpp
-  std::string User();                      // TODO: See src/process.cpp
-  std::string Command();                   // TODO: See src/process.cpp
+  std::string User();                      // Done: See src/process.cpp
+  std::string Command();                   // Done: See src/process.cpp
   float CpuUtilization();                  // TODO: See src/process.cpp
-  std::string Ram();                       // TODO: See src/process.cpp
+  std::string Ram();                       // Done: See src/process.cpp
   long int UpTime();                       // TODO: See src/process.cpp
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
 
@@ -26,6 +26,7 @@ class Process {
  	int pid_;
  	string command_ = {};
  	string ram_ = {};
+ 	string user_ = {};
 
 };
 

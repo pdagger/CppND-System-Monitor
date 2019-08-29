@@ -16,6 +16,7 @@ Process::Process(int pid){
   	pid_= pid;
   	command_ = LinuxParser::Command(pid_);
   	ram_ =  LinuxParser::Ram(pid_);
+  	user_ = LinuxParser::User(pid_);
   };
 
 // Done: Return this process's ID
@@ -30,8 +31,8 @@ string Process::Command() { return command_; }
 // DONE: Return this process's memory utilization
 string Process::Ram() { return ram_; }
 
-// TODO: Return the user (name) that generated this process
-string Process::User() { return string(); }
+// Done: Return the user (name) that generated this process
+string Process::User() { return user_; }
 
 // TODO: Return the age of this process (in seconds)
 long int Process::UpTime() { return 0; }
