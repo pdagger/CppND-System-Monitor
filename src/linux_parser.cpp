@@ -177,6 +177,8 @@ int LinuxParser::TotalProcesses() {
       }*/
     }
   }
+
+  return 0;
 }
 
 // Done: Read and return the number of running processes
@@ -197,11 +199,27 @@ int LinuxParser::RunningProcesses() {
       }*/
     }
   }
+
+  return 0;
 }
 
 // TODO: Read and return the command associated with a process
-// REMOVE: [[maybe_unused]] once you define the function
-string LinuxParser::Command(int pid[[maybe_unused]]) { return string(); }
+string LinuxParser::Command(int pid) { 
+  string line;
+  vector<string> infos;
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kCmdlineFilename);
+  if (filestream.is_open()){
+    std::getline(filestream, line);
+    // If no command on file
+    if (line == "") {
+      return "None";
+    }
+    else{
+      return line;
+    }
+  }
+  return string();
+}
 
 // TODO: Read and return the memory used by a process
 // REMOVE: [[maybe_unused]] once you define the function
