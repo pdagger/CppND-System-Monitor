@@ -25,6 +25,7 @@ class Process {
  private:
  	int pid_;
  	string command_ = {};
+ 	string ram_ = {};
 
 };
 
