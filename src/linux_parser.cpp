@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <unistd.h>
 
 #include "linux_parser.h"
 #include<iostream>
@@ -291,5 +292,22 @@ string LinuxParser::User(int pid) {
 }
 
 // TODO: Read and return the uptime of a process
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::UpTime(int pid) { 
+  string line, info;
+  int i;
+
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
+  if (filestream.is_open()){
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      i = 0;
+      while (std::getline(linestream, info, ' ')) {
+        if (i == 21) {
+          return (stol(info) / sysconf(_SC_CLK_TCK)) ;
+        }
+        i++;
+      }
+    }
+  }
+return 0;
+}

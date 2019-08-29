@@ -27,6 +27,7 @@ class Process {
  	string command_ = {};
  	string ram_ = {};
  	string user_ = {};
+ 	long uptime_;
 
 };
 
