@@ -1,6 +1,7 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
+//#include "linux_parser.h"
 #include <string>
 
 using std::string;
@@ -18,13 +19,12 @@ class Process {
   long int UpTime();                       // TODO: See src/process.cpp
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
 
-  Process(int pid){ 
-  	pid_= pid; 
-  }
+  Process(int pid);  // See src/process.cpp
 
   // TODO: Declare any necessary private members
  private:
  	int pid_;
+ 	string command_ = {};
 
 };
 
