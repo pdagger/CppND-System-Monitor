@@ -159,7 +159,7 @@ vector<string> LinuxParser::CpuUtilization() {
   return infos;
 }
 
-// TODO: Read and return the total number of processes
+// Done: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { 
   string line, key, value;
   vector<string> infos;
@@ -179,7 +179,7 @@ int LinuxParser::TotalProcesses() {
   }
 }
 
-// TODO: Read and return the number of running processes
+// Done: Read and return the number of running processes
 int LinuxParser::RunningProcesses() { 
   string line, key, value;
   vector<string> infos;

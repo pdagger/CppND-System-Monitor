@@ -10,11 +10,11 @@
 class System {
  public:
   Processor& Cpu();                   // Done: See src/system.cpp
-  std::vector<Process>& Processes();  // TODO: See src/system.cpp
-  float MemoryUtilization();          // TODO: See src/system.cpp
+  std::vector<Process>& Processes();  // Done: See src/system.cpp
+  float MemoryUtilization();          // Done: See src/system.cpp
   long UpTime();                      // Done: See src/system.cpp
-  int TotalProcesses();               // TODO: See src/system.cpp
-  int RunningProcesses();             // TODO: See src/system.cpp
+  int TotalProcesses();               // Done: See src/system.cpp
+  int RunningProcesses();             // Done: See src/system.cpp
   std::string Kernel();               // Done: See src/system.cpp
   std::string OperatingSystem();      // Done: See src/system.cpp
 
