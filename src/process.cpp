@@ -18,13 +18,14 @@ Process::Process(int pid){
   	ram_ =  LinuxParser::Ram(pid_);
   	user_ = LinuxParser::User(pid_);
   	uptime_ = LinuxParser::UpTime(pid_);
+  	cpu_utilization_ = (float)LinuxParser::ActiveJiffies(pid_) / ((float)LinuxParser::UpTime() - (float)uptime_ * sysconf(_SC_CLK_TCK));
   };
 
 // Done: Return this process's ID
 int Process::Pid() { return pid_; }
 
 // TODO: Return this process's CPU utilization
-float Process::CpuUtilization() { return 0; }
+float Process::CpuUtilization() { return cpu_utilization_; }
 
 // DONE: Return the command that generated this process
 string Process::Command() { return command_; }

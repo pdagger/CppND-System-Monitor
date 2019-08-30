@@ -28,7 +28,7 @@ class Process {
  	string ram_ = {};
  	string user_ = {};
  	long uptime_;
-
+ 	float cpu_utilization_;
 };
 
 #endif
