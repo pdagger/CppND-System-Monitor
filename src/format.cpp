@@ -7,7 +7,7 @@ using std::to_string;
 
 // Done: Complete this helper function
 // INPUT: Long int measuring seconds
-// OUTPUT: HH:MM:SS
+// OUTPUT: HH:MM:SS or if it applies "DD days HH:MM:SS"
 string Format::ElapsedTime(long seconds) { 
 	int dd, hh, remaining_s, mm, ss;
 
