@@ -21,7 +21,7 @@ class Process {
 
   Process(int pid);  // See src/process.cpp
 
-  // TODO: Declare any necessary private members
+  // Done: Declare any necessary private members
  private:
  	int pid_;
  	string user_ = {};

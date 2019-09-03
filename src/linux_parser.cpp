@@ -6,7 +6,6 @@
 #include <unistd.h>
 
 #include "linux_parser.h"
-#include<iostream>
 
 using std::stoi;
 using std::stol;

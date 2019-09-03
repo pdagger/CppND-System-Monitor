@@ -8,12 +8,12 @@
 #include "processor.h"
 #include "system.h"
 #include "linux_parser.h"
-#include<iostream>
 
 using std::set;
 using std::size_t;
 using std::string;
 using std::vector;
+using std::sort;
 
 // Done: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
@@ -21,10 +21,11 @@ Processor& System::Cpu() { return cpu_; }
 // Done: Return a container composed of the system's processes
 vector<Process>& System::Processes() { 
 	vector<int> pids = LinuxParser::Pids();
+	processes_ = {};
 	for (int pid: pids) {
 		processes_.push_back(Process(pid));
 	}
-
+	sort(processes_.begin(), processes_.end());
 	return processes_;
 }
 

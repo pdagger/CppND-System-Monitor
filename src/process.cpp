@@ -60,10 +60,12 @@ string Process::User() { return user_; }
 long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
 
 // DONE: Overload the "less than" comparison operator for Process objects
+// Used with the sort function to order in descending order with respect
+// to RAM usage
 bool Process::operator<(Process const& a) const { 
 	string ram = LinuxParser::Ram(pid_);
 
-	if (ram < LinuxParser::Ram(a.pid_)) {
+	if (ram > LinuxParser::Ram(a.pid_)) {
 		return true;
 	}
 
