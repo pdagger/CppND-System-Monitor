@@ -2,7 +2,6 @@
 #include "linux_parser.h"
 
 #include <unistd.h> // for usleep
-#include<iostream>
 
 // Done: Return the aggregate CPU utilization
 float Processor::Utilization() {
