@@ -63,9 +63,10 @@ long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
 // Used with the sort function to order in descending order with respect
 // to RAM usage
 bool Process::operator<(Process const& a) const { 
-	string ram = LinuxParser::Ram(pid_);
+	long ram = stol(LinuxParser::Ram(pid_));
+	long ram_a = stol(LinuxParser::Ram(a.pid_));
 
-	if (ram > LinuxParser::Ram(a.pid_)) {
+	if (ram > ram_a) {
 		return true;
 	}
 
